@@ -29,7 +29,7 @@ public:
 		int ret;
 		ifstream file("/proc/meminfo");
 		for(int i = 0; i < 2; i++)
-			file.getLine();	
+			file.getline();	
 		v = split(file.getline()," ");
 		s = v.at(v.length() - 2);
 		istringstream(s) >> ret;
