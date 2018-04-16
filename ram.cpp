@@ -16,9 +16,12 @@ public:
 		stringstream ss;
 		int ret;
 		ifstream file("/proc/meminfo");
-		v = split(file.getline()," ");
-		s = v.at(v.length() - 2);
-		istringstream(s) >> ret;
+		if(file.is_open()){
+			v = split(file.getline()," ");
+			s = v.at(v.length() - 2);
+			istringstream(s) >> ret;
+		}
+		file.close();
 		return ret;
 	}
 
@@ -28,11 +31,14 @@ public:
 		stringstream ss;
 		int ret;
 		ifstream file("/proc/meminfo");
-		for(int i = 0; i < 2; i++)
-			file.getline();	
-		v = split(file.getline()," ");
-		s = v.at(v.length() - 2);
-		istringstream(s) >> ret;
+		if(file.is_open()){
+			for(int i = 0; i < 2; i++)
+				file.getline();	
+			v = split(file.getline()," ");
+			s = v.at(v.length() - 2);
+			istringstream(s) >> ret;
+		}
+		file.close();
 		return ret;
 
 	}
