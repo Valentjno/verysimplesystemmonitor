@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
-#include <stringstream>
+
 #include "split.cpp"
 
 using namespace std;
@@ -17,8 +17,9 @@ public:
 		int ret;
 		ifstream file("/proc/meminfo");
 		if(file.is_open()){
-			v = split(file.getline()," ");
-			s = v.at(v.length() - 2);
+			getline(file,s);
+			v = split(s, ' ');
+			s = v.at(v.size() - 2);
 			istringstream(s) >> ret;
 		}
 		file.close();
@@ -33,9 +34,10 @@ public:
 		ifstream file("/proc/meminfo");
 		if(file.is_open()){
 			for(int i = 0; i < 2; i++)
-				file.getline();	
-			v = split(file.getline()," ");
-			s = v.at(v.length() - 2);
+				getline(file,s);
+			getline(file,s);
+			v = split(s, ' ');
+			s = v.at(v.size() - 2);
 			istringstream(s) >> ret;
 		}
 		file.close();
@@ -45,7 +47,7 @@ public:
 
 
 	int get_used_percent(){
-		return (get_used()/get_total())*100);
+		return (get_used()/get_total())*100;
 	}
 
 	
